@@ -157,3 +157,16 @@ AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx 2.10GHz, 1 CPU, 8 logical and 4 ph
 | ---------------- | --------: | -------: | -------: | ----: | ------: | --------: | ----------: |
 | SimplesSomaArray | 111.80 μs | 0.946 μs | 0.839 μs |  5.24 |    0.20 |         - |          NA |
 | SIMDSomaArray    |  21.37 μs | 0.424 μs | 0.847 μs |  1.00 |    0.05 |         - |          NA |
+
+### Próximos Passos
+
+Nas versões 8 e superiores o .NET suporta AVX-512; particularmente de interesse para o nosso exemplo, suporta o método
+`Avx512BW.Add()`. Ao adaptar o código fonte deste estudo de caso para usar `Vector512<int>` se espera um ganho de
+performance próximo de 100%, isto baseado na experiência de outras ferramentas escritas em `C` que já realizaram
+adaptação semelhante.
+
+É possível obter acesso a hardware que suporta AVX-512 usando provedores de nuvem pública. Várias CPUs Intel Xeon
+disponíveis nestes provedores já dispõem de AVX-512. Porém, no segmento Desktop a disponibilidade de CPUs é muito mais
+restrita e os custos bastante proibitivos. Por exemplo, a
+[CPU Intel i9-10980XE](https://www.intel.com.br/content/www/br/pt/products/sku/198017/intel-core-i910980xe-extreme-edition-processor-24-75m-cache-3-00-ghz/specifications.html)
+oferece AVX-512 para o universo Desktop por um preço sugerido superior a mil dolares por unidade para clientes da Intel.
