@@ -25,6 +25,14 @@ O SIMD é particularmente eficaz para tarefas que envolvem cálculos repetitivos
 simulações científicas. Ele se baseia em instruções especializadas que permitem às CPUs e GPUs lidar com vários pontos
 de dados ao mesmo tempo, otimizando o desempenho ao reduzir o número de ciclos necessários para a execução.
 
+## Por que usar SIMD? Por que paralelizar?
+
+A resposta para estas perguntas é a mais direta possível.
+
+- A vantagem de usar o processamento paralelo é, de fato, reduzir o tempo necessário para processar tarefas longas;
+- Reduzir o tempo de processamento de meses para semanas; de horas para minutos; de minutos para segundos;
+- Melhorar a experiência do usuário ao diminuir o tempo de espera por resultados.
+
 ## Um Estudo de Caso
 
 É relativamente simples encontrar na internet vários artigos que alegam ganhos substanciais no desempenho de aplicações
@@ -158,12 +166,12 @@ AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx 2.10GHz, 1 CPU, 8 logical and 4 ph
 | SimplesSomaArray | 111.80 μs | 0.946 μs | 0.839 μs |  5.24 |    0.20 |         - |          NA |
 | SIMDSomaArray    |  21.37 μs | 0.424 μs | 0.847 μs |  1.00 |    0.05 |         - |          NA |
 
-### Próximos Passos
+## Próximos Passos
 
-Nas versões 8 e superiores o .NET suporta AVX-512; particularmente de interesse para o nosso exemplo, suporta o método
-`Avx512BW.Add()`. Ao adaptar o código fonte deste estudo de caso para usar `Vector512<int>` se espera um ganho de
-performance próximo de 100%, isto baseado na experiência de outras ferramentas escritas em `C` que já realizaram
-adaptação semelhante.
+Nas versões 8 e superiores o .NET suporta AVX-512 (o próximo nível SIMD para CPUs X86); particularmente de interesse
+para o nosso exemplo, suporta o método `Avx512BW.Add()`. Ao adaptar o código fonte deste estudo de caso para usar
+`Vector512<int>` se espera um ganho de performance próximo de 100%, isto baseado na experiência de outras ferramentas
+escritas em `C` que já realizaram adaptação semelhante.
 
 É possível obter acesso a hardware que suporta AVX-512 usando provedores de nuvem pública. Várias CPUs Intel Xeon
 disponíveis nestes provedores já dispõem de AVX-512. Porém, no segmento Desktop a disponibilidade de CPUs é muito mais
