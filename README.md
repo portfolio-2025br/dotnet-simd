@@ -1,5 +1,8 @@
 # Acelerando .NET Usando SIMD
 
+Neste artigo iremos comprovar que é possível melhorar o desempenho de programas C# usando SIMD em código gerenciado
+através de uma API limpa.
+
 ## O Que é SIMD?
 
 SIMD significa _Single Instruction, Multiple Data_ (Instrução Única, Múltiplos Dados), uma técnica de computação que
