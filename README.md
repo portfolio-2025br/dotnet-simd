@@ -124,6 +124,7 @@ namespace SIMDPerformance
         public void SimplesSomaArray()
         {
             // O processador está somando 1 (UM) inteiro por vez
+            //          #### APENAS UM POR VEZ ####
             for (int i = 0; i < left.Length; i++)
                 resultado[i] = left[i] + right[i];
         }
@@ -138,7 +139,9 @@ namespace SIMDPerformance
             Span<Vector256<int>> outputVectors =
                 MemoryMarshal.Cast<int, Vector256<int>>(resultado);
 
+            //       ############### Importante ###############
             // O processador está somando 8 (OITO) inteiros de uma vez
+            //               #### OITO DE UMA VEZ ####
             for (int i = 0; i < leftVectors.Length; i++)
                 outputVectors[i] =
                     Avx2.Add(leftVectors[i], rightVectors[i]);
