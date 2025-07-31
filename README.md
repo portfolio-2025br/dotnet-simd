@@ -153,7 +153,10 @@ namespace SIMDPerformance
 ### Os Resultados
 
 De fato, nós conseguimos comprovar um ganho superior a 5 (cinco) vezes no desempenho de uma aplicação cujo propósito é
-fazer uma soma de elementos de um Array.
+fazer uma soma de elementos de um Array. O ganho nunca será igual a oito pois qualquer processamento envolverá alguma
+preparação antes da execução da região que será "paralelizada", seguida pelo processamento da rotina paralelizada, e
+finalizado por algum tipo de processamento final. Logo, o ganho será sempre menor que o número usado para o
+"fatiamento".
 
 Como pode ser visto abaixo, usamos a últimas versões LTS tanto do Ubuntu quanto do .NET em um processador AMD
 relativamente recente (para os padrões brasileiros).
