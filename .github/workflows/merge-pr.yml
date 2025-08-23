@@ -72,7 +72,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
-          persist-credentials: false
+          persist-credentials: true # required for the bot to perform the merge
 
       - name: GitHub context
         env:
