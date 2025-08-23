@@ -72,6 +72,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
+          persist-credentials: false
 
       - name: GitHub context
         env:
@@ -86,18 +87,14 @@ jobs:
             BRANCH="$(gh pr view "$PR_URL" --json headRefName        --jq '.headRefName')"
             OWNER="$(gh pr view "$PR_URL" --json headRepositoryOwner --jq '.headRepositoryOwner.login')"
             REPO="$(gh pr view "$PR_URL" --json headRepository       --jq '.headRepository.name')"
-          else
-            BRANCH="${{ inputs.branch }}"
-            OWNER="${{ inputs.owner }}"
-            REPO="${{ inputs.repo }}"
           fi
 
-          if [[ "${{ inputs.request }}"  == "true" ]]; then
+          if [[ "${INPUT_REQUEST}"  == "true" ]]; then
             REQUEST="bot: MERGE trial"
-          elif [[ "${{ inputs.request }}"  == "false" ]]; then
+          elif [[ "${INPUT_REQUEST}"  == "false" ]]; then
             REQUEST="bot: MERGE"
           else
-            REQUEST="${{ inputs.request }}"
+            REQUEST="${INPUT_REQUEST}"
           fi
           {
             echo "branch=$BRANCH"
@@ -110,18 +107,21 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ inputs.pr-number }}
+          BRANCH: ${{ inputs.branch }}
+          OWNER: ${{ inputs.owner }}
+          REPO: ${{ inputs.repo }}
+          INPUT_REQUEST: ${{ inputs.request }}
 
       - name: Auto-merge PRs
         run: |
-          export BRANCH="${{ steps.context.outputs.branch }}"
-          export OWNER="${{ steps.context.outputs.owner }}"
-          export REPO="${{ steps.context.outputs.repo }}"
-          export PR_URL="${{ steps.context.outputs.pr-url }}"
-          export REQUEST="${{ steps.context.outputs.request }}"
-
           # Download the script
           wget https://github.com/portfolio-2025br/dotnet-simd/raw/refs/heads/main/scripts/merge_procedures.sh
           source "./merge_procedures.sh" # @main
 
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ steps.context.outputs.branch }}
+          OWNER: ${{ steps.context.outputs.owner }}
+          REPO: ${{ steps.context.outputs.repo }}
+          PR_URL: ${{ steps.context.outputs.pr-url }}
+          REQUEST: ${{ steps.context.outputs.request }}
